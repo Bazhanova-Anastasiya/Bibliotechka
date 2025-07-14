@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, type PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 export interface Book {
@@ -73,8 +73,8 @@ const booksSlice = createSlice({
         state.loading = false;
         const newBooks = action.payload;
 
-        const existingIds = new Set(state.items.map((book) => book.id));
-        const filteredBooks = newBooks.filter((book) => !existingIds.has(book.id));
+        const existingIds = Array.from(new Set(state.items.map((book) => book.id)));
+        const filteredBooks = newBooks.filter((book: Book) => !existingIds.includes(book.id));
 
         state.items.push(...filteredBooks);
         state.startIndex += newBooks.length;

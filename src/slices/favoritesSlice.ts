@@ -1,17 +1,18 @@
-import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, type PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
 import { db } from '../firebase';
 import {
   doc,
   setDoc,
   getDoc,
 } from 'firebase/firestore';
-import { RootState } from '../store/store';
+import type { RootState } from '../store/store';
 
 export interface Book {
   id: string;
   title: string;
   authors: string[];
   thumbnail: string;
+  description: string;
 }
 
 interface FavoritesState {
@@ -80,7 +81,6 @@ export const { addFavorite, removeFavorite } = favoritesSlice.actions;
 
 // 🔄 Обновление Firestore при изменениях
 export const updateFavoritesInFirestore = () => async (
-  dispatch: any,
   getState: () => RootState
 ) => {
   const state = getState();

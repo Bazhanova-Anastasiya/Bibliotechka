@@ -4,7 +4,7 @@ import HomePage from './pages/HomePage';
 import FavoritesPage from './pages/FavoritesPage';
 import Navbar from './components/Navbar';
 import { useAppDispatch } from './store/hooks';
-import { onAuthStateChanged } from 'firebase/auth';
+import { onAuthStateChanged, type User } from 'firebase/auth';
 import { auth } from './firebase';
 import { setUser } from './slices/authSlice';
 import ScrollToTopButton from './components/ScrollToTopButton';
@@ -15,7 +15,7 @@ const App: React.FC = () => {
   // 🔁 Восстановление авторизации при перезагрузке
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      dispatch(setUser(user));
+      dispatch(setUser(user?.toJSON() as User));
     });
     return () => unsubscribe();
   }, [dispatch]);

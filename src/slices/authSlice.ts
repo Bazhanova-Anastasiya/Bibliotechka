@@ -1,5 +1,5 @@
-import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { GoogleAuthProvider, signInWithPopup, signOut, User } from 'firebase/auth';
+import { createSlice, createAsyncThunk, type PayloadAction } from '@reduxjs/toolkit';
+import { GoogleAuthProvider, signInWithPopup, signOut, type User } from 'firebase/auth';
 import { auth } from '../firebase';
 
 interface AuthState {
@@ -27,7 +27,7 @@ export const loginWithGoogle = createAsyncThunk(
 
     try {
       const result = await signInWithPopup(auth, provider);
-      return result.user;
+      return result.user.toJSON();
     } catch (error: any) {
       return rejectWithValue(error.message);
     }
@@ -58,7 +58,7 @@ const authSlice = createSlice({
       })
       .addCase(loginWithGoogle.fulfilled, (state, action) => {
         state.loading = false;
-        state.user = action.payload;
+        state.user = action.payload as User | null;
       })
       .addCase(loginWithGoogle.rejected, (state, action) => {
         state.loading = false;
