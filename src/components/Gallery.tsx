@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import BookCard from './BookCard';
 import Modal from './Modal';
 import { fetchBooks } from '../slices/booksSlice';
-import { RootState } from '../store/store';
-import { Book } from '../slices/favoritesSlice';
+import type { RootState } from '../store/store';
+import type { Book } from '../slices/favoritesSlice';
 
 function Gallery() {
   const dispatch = useDispatch();

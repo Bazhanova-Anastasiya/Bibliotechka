@@ -1,4 +1,4 @@
-import { Book } from '../slices/favoritesSlice';
+import type { Book } from '../slices/favoritesSlice';
 import { X } from 'lucide-react';
 
 interface ModalProps {

@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Book, addFavorite, removeFavorite, updateFavoritesInFirestore } from '../slices/favoritesSlice';
-import { RootState } from '../store/store';
+import { addFavorite, removeFavorite, updateFavoritesInFirestore } from '../slices/favoritesSlice';
+import type { Book } from '../slices/favoritesSlice';
+import type { RootState } from '../store/store';
 import { Heart } from 'lucide-react';
 
 interface BookCardProps {
@@ -29,7 +30,7 @@ function BookCard({ book, onClick }: BookCardProps) {
       dispatch(addFavorite(book));
     }
 
-    dispatch(updateFavoritesInFirestore());
+    updateFavoritesInFirestore();
   };
 
   return (
@@ -52,7 +53,7 @@ function BookCard({ book, onClick }: BookCardProps) {
         </div>
       </div>
 
-      {hovered && (
+      {(hovered || isFavorite) && (
         <button
           onClick={handleToggleFavorite}
           className="absolute bottom-2 right-2 bg-white dark:bg-gray-700 p-1 rounded-full shadow hover:scale-110 transition-transform"

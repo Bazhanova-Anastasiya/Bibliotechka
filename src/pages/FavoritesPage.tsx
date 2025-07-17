@@ -1,9 +1,9 @@
 import { useSelector } from 'react-redux';
-import { RootState } from '../store/store';
+import type { RootState } from '../store/store';
 import BookCard from '../components/BookCard';
 import Modal from '../components/Modal';
 import { useState } from 'react';
-import { Book } from '../slices/favoritesSlice';
+import type { Book } from '../slices/favoritesSlice';
 
 function FavoritesPage() {
   const user = useSelector((state: RootState) => state.auth.user);
